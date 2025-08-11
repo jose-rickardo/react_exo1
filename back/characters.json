@@ -1,30 +1,6 @@
 {
   "characters": [
     {
-      "id": 1,
-      "name": "Spider-Man",
-      "realName": "Peter Parker",
-      "universe": "Earth-616"
-    },
-    {
-      "id": 2,
-      "name": "Iron Man",
-      "realName": "Tony Stark",
-      "universe": "Earth-616"
-    },
-    {
-      "id": 3,
-      "name": "Captain America",
-      "realName": "Steve Rogers",
-      "universe": "Earth-616"
-    },
-    {
-      "id": 4,
-      "name": "Black Widow",
-      "realName": "Natasha Romanoff",
-      "universe": "Earth-616"
-    },
-    {
       "id": 5,
       "name": "Black Panther",
       "realName": "T'Challa",
@@ -56,15 +32,27 @@
     },
     {
       "id": 10,
-      "name": "jose",
-      "realName": "rickardo",
-      "universe": "batman"
+      "name": "ds",
+      "realName": "dsds",
+      "universe": "dsd"
     },
     {
       "id": 11,
-      "name": "dede",
-      "realName": "dede",
-      "universe": "dedd"
+      "name": "sq",
+      "realName": "",
+      "universe": ""
+    },
+    {
+      "id": 12,
+      "name": "a",
+      "realName": "a",
+      "universe": "a"
+    },
+    {
+      "id": 13,
+      "name": "jose",
+      "realName": "rickardo",
+      "universe": "tere"
     }
   ]
 }
