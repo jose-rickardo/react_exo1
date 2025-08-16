@@ -1,8 +1,10 @@
-import ajoute from "../assets/plus.png";
 import edit from "../assets/edit.png";
 import delet from "../assets/bin.png";
+import fondBody from "../assets/fondBody.jpg";
 import fondNav from "../assets/fondNav.jpg";
 import React, { useEffect, useState } from "react";
+import ajoute from "../assets/plus.png";
+
 
 const Body = () => {
   const [backendData, setBackendData] = useState([]);
@@ -10,10 +12,8 @@ const Body = () => {
   const [realNameInput, setRealNameInput] = useState("");
   const [universeInput, setUniverseInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-
   const [positionAjoutInput, setPositionAjoutInput] = useState("w-0 h-0");
   const [showAddForm, setShowAddForm] = useState(false);
-
   const [positionEditInput, setPositionEditInput] = useState("w-0 h-0");
   const [showEditForm, setShowEditForm] = useState(false);
   const [editIdInput, setEditIdInput] = useState(null);
@@ -24,15 +24,13 @@ const Body = () => {
   const bgColor = () => {
     return "bg-amber-200";
   };
-
-  const addModeSortie = () => {
-    setPositionAjoutInput("w-0 h-0");
-    setShowAddForm(false);
-  };
-
   const addModeEntrer = () => {
     setPositionAjoutInput("w-full h-full");
     setShowAddForm(true);
+  };
+  const addModeSortie = () => {
+    setPositionAjoutInput("w-0 h-0");
+    setShowAddForm(false);
   };
 
   const editModeSortie = () => {
@@ -42,17 +40,16 @@ const Body = () => {
     setEditNameInput("");
     setEditRealNameInput("");
     setEditUniverseInput("");
-  }
-
-  const editModeEntrer = (id,name,realName,universe) => {
+  };
+  const editModeEntrer = (id, name, realName, universe) => {
     setPositionEditInput("w-full h-full");
     setShowEditForm(true);
     setEditIdInput(id);
     setEditNameInput(name);
     setEditRealNameInput(realName);
     setEditUniverseInput(universe);
+  };
 
-  }
   // Charger les données du backend
   const fetcher = () => {
     fetch("/api")
@@ -122,7 +119,7 @@ const Body = () => {
   };
 
   // Filtrer les personnages
-  const filteredUsers = backendData.filter((x) => {
+  const filterPerso = backendData.filter((x) => {
     const q = searchQuery.toLowerCase();
     return (
       (x.name || "").toLowerCase().includes(q) ||
@@ -136,9 +133,9 @@ const Body = () => {
     <>
       <div
         className="w-full h-1/5 bg-cover bg-center"
-        style={{ backgroundImage: `url(${fondNav})` }}
+        style={{ backgroundImage: `url(${fondNav})`}}
       >
-        <nav className="bg-amber-300 h-1/7 top-15 w-4/5 fixed left-1/2 -translate-x-1/2 rounded-2xl">
+        <nav className="shadow-2xl shadow-gray-900 bg-amber-300 h-1/7 top-15 w-4/5 flex items-center fixed left-1/2 -translate-x-1/2 rounded-2xl">
           <input
             type="text"
             value={searchQuery}
@@ -155,43 +152,47 @@ const Body = () => {
           </button>
         </nav>
       </div>
-
-      <div className="h-4/5 w-full bg-amber-50 pt-10 overflow-scroll">
-        {filteredUsers.length === 0 ? (
+      <div
+        className="h-screen w-full pt-15 overflow-scroll  bg-cover"
+        style={{ backgroundImage: `url(${fondBody})` }}
+      >
+        {filterPerso.length === 0 ? (
           <p className="text-center text-2xl font-bold">
             Aucun personnage trouvé
           </p>
         ) : (
-          filteredUsers.map((e) => (
-            <div key={e.id} className="flex items-center justify-center mb-10">
+          filterPerso.map((e) => (
+            <div key={e.id} className="flex items-center justify-center mb-5 ">
               {" "}
-              <table className="bg-amber-400 h-15 w-3/4">
-                <thead className="bg-emerald-700">
+              <table className="bg-black border-4 border-amber-50 text-white shadow-2xl shadow-amber-50 h-20 w-3/4 rounded-3xl ">
+                <thead className="bg-black  border-none rounded-2xl">
                   <tr className="rounded">
-                    <td className="text-xl border-2 font-bold w-1/4">id</td>
-                    <td className="text-xl border-2 font-bold w-1/4">Name</td>
-                    <td className="text-xl border-2 font-bold w-1/4">
+                    <th className="text-xl  font-bold w-1/4">id</th>
+                    <td className="text-xl  font-bold w-1/4">Name</td>
+                    <td className="text-xl font-bold w-1/4">
                       realName
                     </td>
-                    <td className="text-xl border-2 font-bold w-1/4">
+                    <td className="text-xl  font-bold w-1/4">
                       universe
                     </td>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="text-xl border-2">{e.id}</td>
-                    <td className="text-xl border-2">{e.name}</td>
-                    <td className="text-xl border-2">{e.realName}</td>
-                    <td className="text-xl border-2">{e.universe}</td>
+                    <th className="text-xl ">{e.id}</th>
+                    <td className="text-xl ">{e.name}</td>
+                    <td className="text-xl ">{e.realName}</td>
+                    <td className="text-xl ">{e.universe}</td>
                   </tr>
                 </tbody>
               </table>
               <div
-                className={`flex justify-between px-5 items-center w-1/5 ${bgColor()}`}
+                className={`flex justify-between px-5 items-center w-1/8 rounded-r-2xl -translate-x-1 ${bgColor()}`}
               >
                 <button
-                  onClick={() => editModeEntrer(e.id, e.name, e.realName, e.universe)}
+                  onClick={() =>
+                    editModeEntrer(e.id, e.name, e.realName, e.universe)
+                  }
                   className="m-2 cursor-pointer"
                 >
                   <img src={edit} alt="edit" className="h-10" />
@@ -207,6 +208,8 @@ const Body = () => {
           ))
         )}
       </div>
+
+      {/* formulaire d'ajout */}
       <div
         className={`absolute bg-blue-700 ${showAddForm ? "block" : "hidden"} ${positionAjoutInput} flex items-center flex-col`} // Toggle hidden/block
       >
@@ -246,9 +249,10 @@ const Body = () => {
           </button>
         </form>
       </div>
-      {/* Formulaire de modification */}
+
+      {/* Formulaire de modif */}
       <div
-        className={`absolute bg-blue-700 ${showEditForm ? 'block' : 'hidden'} ${positionEditInput} flex items-center flex-col`}
+        className={`absolute bg-blue-700 ${showEditForm ? "block" : "hidden"} ${positionEditInput} flex items-center flex-col transition-all duration-1000`}
       >
         <form className="absolute p-10 rounded-2xl bg-amber-50 flex flex-col items-center gap-3 translate-y-1/2">
           <input
